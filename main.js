@@ -1,53 +1,48 @@
 // Global variables
-const time_el = document.querySelector('.watch .time')
-const start_btn = document.getElementById('start')
-const stop_btn = document.getElementById('stop')
-const reset_btn = document.getElementById('reset')
+const time_el = document.querySelector('.watch .time');
+const start_btn = document.getElementById('start');
+const stop_btn = document.getElementById("stop");
+const reset_btn = document.getElementById("reset");
 
 let seconds = 0;
 let interval = null;
 
 // Event listeners
 start_btn.addEventListener('click', start);
-stop_btn.addEventListener('click', stop);
-reset_btn.addEventListener('click', reset);
+stop_btn.addEventListener("click", stop);
+reset_btn.addEventListener("click", reset);
 
 // Update the timer
 function timer () {
-	seconds++; // Increase seconds by 1
+	seconds++;
 
-	// Get the hours, minutes and seconds
-	let secs = seconds % 60;
-	let mins = Math.floor(seconds / 60);
+	// Format our time
 	let hrs = Math.floor(seconds / 3600);
+	let mins = Math.floor((seconds - (hrs * 3600)) / 60);
+	let secs = seconds % 60;
 
-	// Format the time
 	if (secs < 10) secs = '0' + secs;
-	if (mins < 10) mins = '0' + mins;
-	if (hrs < 10) hrs = '0' + hrs;
+	if (mins < 10) mins = "0" + mins;
+	if (hrs < 10) hrs = "0" + hrs;
 
-	// Display the time
-	time_el.innerHTML = `${hrs}:${mins}:${secs}`;
+	time_el.innerText = `${hrs}:${mins}:${secs}`;
 }
 
-// Start the timer
 function start () {
 	if (interval) {
-		return;
+		return
 	}
 
 	interval = setInterval(timer, 1000);
 }
 
-// Stop the timer
 function stop () {
 	clearInterval(interval);
 	interval = null;
 }
 
-// Reset the timer
 function reset () {
 	stop();
 	seconds = 0;
-	time_el.innerHTML = '00:00:00';
+	time_el.innerText = '00:00:00';
 }
